@@ -1,6 +1,6 @@
 # USTVNow Android App
 
-![](screenshot.jpg "Screenshot")
+![](screenshot.jpg "Screenshot" =480x266)
 
 This is some pretty basic front-end code to compile from and sideload a Cordova .apk file 
 for running especially on the Amazon FireTV. 
