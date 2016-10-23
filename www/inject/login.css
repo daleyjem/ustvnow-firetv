@@ -1,0 +1,16 @@
+.smartbanner,
+#navbar-top,
+.footer {
+	display: none !important;
+}
+
+.container-signin {
+	margin-top: 0 !important;
+}
+
+a:focus, 
+input:focus, 
+button:focus {
+	outline: dotted 6px #00ff00 !important;
+	text-decoration: none;
+}
