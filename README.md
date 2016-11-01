@@ -42,6 +42,6 @@ Note: Currently, only the `>>` button does something
 
 ## Screenshot(s)
 
-![](./screenshot.jpg)
+![](./screenshot.png)
 
 
