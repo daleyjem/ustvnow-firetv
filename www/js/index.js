@@ -1,8 +1,9 @@
 document.addEventListener('deviceready', onReady);
 
 function onReady(){
-    var GUIDE_URL = 'http://m-api.ustvnow.com/gtv/1/live/channelguidehtml?token=';
-    var LISTING_ITEM_SELECTOR = 'td.chnl a.play';
+    var GUIDE_URL               = 'http://m-api.ustvnow.com/gtv/1/live/channelguidehtml?token=';
+    var LISTING_ITEM_SELECTOR   = 'td.chnl a.play';
+    var RESOLUTIONS             = 3;
 
     var browser = cordova.InAppBrowser;
     var state = 'guide';
@@ -215,7 +216,7 @@ function onReady(){
      * @return {string} The token that was parsed from the DOM script
      */
     function getToken(){
-        var reg = new RegExp("var token[^=]+=[^\"]+\"([^\"]+)\";", "gi");
+        var reg = new RegExp("var token[^=]*=[^\"]*\"([^\"]+)\";", "gi");
         $iframeDoc.find('script:not([src])').each(function(i, el){
             // if it has the JS that we need
             var source = el.innerHTML;
@@ -272,6 +273,45 @@ function onReady(){
         }
     }
 
+    function downGrade(){
+        var $video      = $iframeBody.find('video');
+        var src         = $video.attr('src');
+        var reg         = new RegExp("[a-z0-9]+:[^\\/]+");
+        var m           = src.match( reg )[0];
+        var protocol    = m.split(':')[0];
+        var post        = m.split(':')[1];
+        
+        if (protocol === 'smil') {
+            // goto high-res mp4
+            src = src.split( m ).join('mp4:' + post + RESOLUTIONS);
+        } 
+        // if (protocol === 'mp4')
+        else {
+            // what's the last digit
+            var digit   = parseInt( post.substr(-1) );
+            var rep     = '';
+
+            if (digit === 1) {
+                // go back to smil
+                rep = 'smil:' + post.substr(0, post.length - 1);
+            } else {
+                digit--;
+                rep = m.substr(0, m.length - 1) + digit;
+            }
+
+            src = src.split( m ).join( rep );
+        }
+
+        $video[0].src = src;
+        $video[0].play();
+    }
+
+
+    /******************************
+     * Events
+     ******************************/
+
+
     function onIframeLoaded(){
         init();
     }
@@ -297,11 +337,11 @@ function onReady(){
             case 179:
                 plauseVideo();
                 break;
-            // << RWD
+            // << RWD ... Cycle down through quality
             case 227:
-                $prevItem.click();
+                downGrade();
                 break;
-            // FWD >> 
+            // FWD >> ... Toggle video preview mode
             case 228:
                 $iframeBody.toggleClass('collapsed');
                 state = $iframeBody.hasClass('collapsed') ? 'guide' : 'video';

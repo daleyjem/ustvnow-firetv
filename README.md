@@ -36,9 +36,8 @@ As long as you trust that the .apk file was built from this source, download the
 
 ## Remote Control Behaviors
 
-Note: Currently, only the `>>` button does something
-
 * `>>`: Toggles between fullscreen and guide
+* `<<`: Downgrades and loops video quality from "Auto", "High", "Medium" to "Low". Use this if you're experiencing playback issues.
 
 ## Screenshot(s)
 
