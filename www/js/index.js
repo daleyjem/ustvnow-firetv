@@ -2,6 +2,7 @@ document.addEventListener('deviceready', onReady);
 
 function onReady(){
     var GUIDE_URL               = 'http://m-api.ustvnow.com/gtv/1/live/channelguidehtml?token=';
+    var GUIDE_URL_APPEND        = '&tz=' + (new Date().getTimezoneOffset() * -1);
     var LISTING_ITEM_SELECTOR   = 'td.chnl a.play';
     var RESOLUTIONS             = 3;
 
@@ -249,7 +250,7 @@ function onReady(){
     }
 
     window.updateGuide = function(){
-        $.get(GUIDE_URL + token, function(data){
+        $.get(GUIDE_URL + token + GUIDE_URL_APPEND, function(data){
             $iframeBody.find('#guide').html( data );
             processGuide();
             setTod();
