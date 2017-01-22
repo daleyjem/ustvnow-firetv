@@ -176,8 +176,8 @@ function onReady(){
         var containerHTML = 
             '<div class="injected-info-container">' +
                 '<div class="injected-network"></div>' +
-                '<div class="injected-title">This is the Title</div>' +
-                '<div class="injected-description">Conny discovers that Jimmy has been sleeping with his best friends dog. Gross!</div>' +
+                '<div class="injected-title"></div>' +
+                '<div class="injected-description"></div>' +
             '</div>';
 
         $infoContainer = $( containerHTML );
