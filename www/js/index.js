@@ -105,7 +105,7 @@ function onReady(){
      */
     function checkLoggedIn($document){
         // There should be one of these if we're logged in...
-        var $acctBox = $document.find('.menu-btn-login .dropdown-menu');
+        var $acctBox = $document.find('.header-logged');
         return $acctBox.length > 0;
     }
 
@@ -343,7 +343,8 @@ function onReady(){
                 downGrade();
                 break;
             // FWD >> ... Toggle video preview mode
-            case 228:
+            case 228:   // FireTV
+            case 0:     // AndroidTV
                 $iframeBody.toggleClass('collapsed');
                 state = $iframeBody.hasClass('collapsed') ? 'guide' : 'video';
 
